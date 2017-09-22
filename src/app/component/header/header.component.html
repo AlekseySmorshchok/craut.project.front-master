@@ -1,0 +1,40 @@
+
+<nav id="navbar-header" class="navbar navbar-default" role="navigation">
+   <div class="container-fluid">
+    <h1><a class="navbar-brand text-log" href="/">{{'Title'|translate}}</a></h1>
+  <div class="dropdown settings" dropdown>
+    <button class="btn btn-primary"  dropdown-open style="position:relative; right: 20px;"><span class="glyphicon glyphicon-cog"></span></button>
+    <ul class="dropdown-menu" style="left: 0;">
+      <li><a (click)="switchLanguage('en')">{{'en'|translate}}</a></li>
+      <li><a (click)="switchLanguage('ru')">{{'ru'|translate}}</a></li>
+      <li>
+      <a>
+        <div style="float: left">{{'NIGHT_MODE'|translate}}</div>
+        <a class="btn_switch" >
+          <input type="checkbox" name="switch" id="switch" [(ngModel)]="mode" (change)="changeMode()">
+          <label for="switch" style="margin-left: 10px"></label>
+        </a>
+      </a>
+    </li>
+      <li *ngIf="authGuard.isActivate() == true"><a href="profile"><span class="glyphicon glyphicon-user"></span> {{'SettingsProfile'|translate}}</a></li>
+    </ul>
+  </div>
+
+  <button  class="login btn-primary btn" id="login-button-header"  *ngIf="authGuard.isActivate() == false"  data-toggle="modal"
+          data-target="#openModal" > <span class="glyphicon glyphicon-log-in"></span>  {{'login'|translate}}</button>
+
+  <button  class="btn btn-primary login" id="logout-button-header" *ngIf="authGuard.isActivate() == true" data-toggle="modal"
+          data-target="#openLogout">{{'Logout'|translate}}  <span class="glyphicon glyphicon-log-out" ></span></button>
+  <div class="search">
+    <input name="query" type="text" class="search-query txt-field" [(ngModel)]="searcheRequest" placeholder="{{'inpsearche'|translate}}">
+    <button type="submit" (click)="sendRequest()"><span class="glyphicon glyphicon-search"></span></button>
+  </div>
+</div>
+</nav>
+<div id="openModal" class="modal fade" aria-labelledby="openModal" tabindex="-1" aria-hidden="true" role="dialog"  >
+  <app-login ></app-login>
+</div>
+<div id="openLogout" class="modal fade" aria-hidden="true" aria-labelledby="openLogout" tabindex="-1" role="dialog">
+  <app-logout></app-logout>
+</div>
+
